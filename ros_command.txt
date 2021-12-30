@@ -1,0 +1,18 @@
+roscore
+
+rosbag play --clock villa.bag
+
+python3 image_pubsub.py
+
+for d in $(ls images); do echo $d; ls images/$d | wc -l; done
+
+=============================================================
+rviz
+rqt_image_view
+
+=============================================================
+rosbag play -l villa.bag
+
+rosrun image_transport republish compressed in:=/camera/tricam/long/image_raw out:=/camera/tricam/long/image_raw/
+
+rosrun image_view extract_images _sec_per_frame:=1 image:=/camera/tricam/long/image_raw
